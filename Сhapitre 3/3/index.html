@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+</head>
+<body>
+    <form action="#" method="post"></form>
+        <fieldset>
+            <legend>Paramètres du compte</legend>
+            
+            <label for="login">Votre login :</label>
+            <input 
+                type="text" 
+                id="login" 
+                name="login" 
+                placeholder="Saisissez votre login" 
+                maxlength="30" 
+                size="30" 
+                required>
+            <br><br>
+            
+            <label for="mdp">Mot de passe :</label>
+            <input 
+                type="password" 
+                id="mdp" 
+                name="mdp" 
+                placeholder="Saisissez votre mot de passe" 
+                maxlength="30" 
+                size="30" 
+                required>
+            <br><br>
+            
+            <label for="couleurFond">Couleur de fond :</label>
+            <input 
+                type="color" 
+                id="couleurFond" 
+                name="couleurFond">
+            <br><br>
+            
+            <label for="taillePolice">Taille de la police :</label>
+            <input 
+                type="range" 
+                id="taillePolice" 
+                name="taillePolice" 
+                min="10" 
+                max="50">
+        </fieldset>
+        <br>
+        
+        <fieldset>
+            <legend>Comptes</legend>
+            
+            <label for="nom">Nom :</label>
+            <input 
+                type="text" 
+                id="nom" 
+                name="nom" 
+                maxlength="30" 
+                size="30" 
+                required>
+            <br><br>
+            
+            <label for="prenom">Prénom :</label>
+            <input 
+                type="text" 
+                id="prenom" 
+                name="prenom" 
+                maxlength="30" 
+                size="30" 
+                required>
+            <br><br>
+            
+            <label for="dateNais">Date de naissance :</label>
+            <input 
+                type="date" 
+                id="dateNais" 
+                name="dateNais" 
+                required>
+        </fieldset>
+        <br>
+        
+        <fieldset>
+            <legend>Coordonnées</legend>
+            
+            <label for="num">Numéro :</label>
+            <input 
+                type="text" 
+                id="num" 
+                name="num" 
+                size="10">
+            <br><br>
+            
+            <label for="type">Type de voie :</label>
+            <input 
+                type="text" 
+                id="type" 
+                name="type" 
+                size="10">
+            <br><br>
+            
+            <label for="nomv">Nom de la voie :</label>
+            <input 
+                type="text" 
+                id="nomv" 
+                name="nomv" 
+                size="30">
+            <br><br>
+            
+            <label for="cp">Code postal :</label>
+            <input 
+                type="text" 
+                id="cp" 
+                name="cp" 
+                size="6">
+            <br><br>
+            
+            <label for="ville">Ville :</label>
+            <input 
+                type="text" 
+                id="ville" 
+                name="ville" 
+                size="30">
+            <br><br>
+            
+            <label for="tel">Tél. mobile :</label>
+            <input 
+                type="text" 
+                id="tel" 
+                name="tel" 
+                size="30">
+        </fieldset>
+        <br>
+        
+        <fieldset>
+            <legend>Contacts</legend>
+            
+            <label for="email">Email :</label>
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                size="40">
+            <br><br>
+            
+            <label for="url">URL :</label>
+            <input 
+                type="url" 
+                id="url" 
+                name="url" 
+                size="40">
+        </fieldset>
+        <br>
+        
+        <fieldset>
+            <legend>Message</legend>
+            
+            <label for="message">Votre message :</label>
+            <textarea 
+                id="message" 
+                name="message" 
+                maxlength="500" 
+                rows="10" 
+                cols="50"></textarea>
+        </fieldset>
+        <br>
+        
+        <button type="submit">Valider</button>
+    </form>
+</body>
+</html>

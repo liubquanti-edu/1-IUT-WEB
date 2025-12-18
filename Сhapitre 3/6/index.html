@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 6</title>
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Coordonnées</legend>
+            <label for="numero">Numéro :</label>
+            <input type="text" id="numero" placeholder="ex : 21"><br>
+
+            <label for="type">Type de voie :</label>
+            <select id="type" name="type">
+                <option value="Rue" selected>Rue</option>
+                <option value="Allée">Allée</option>
+                <option value="Avenue">Avenue</option>
+                <option value="Boulevard">Boulevard</option>
+                <option value="Chemin">Chemin</option>
+                <option value="Impasse">Impasse</option>
+                <option value="Place">Place</option>
+            </select><br>
+
+            <label for="nomVoie">Nom de la voie :</label>
+            <input type="text" id="nomVoie" placeholder="ex : du labrador"><br>
+
+            <label for="codePostal">Code postal :</label>
+            <input type="text" id="codePostal" placeholder="99999"><br>
+
+            <label for="ville">Ville :</label>
+            <input type="text" id="ville" placeholder="ex : Clermont-Ferrand"><br>
+
+            <label for="telMobile">Tél. mobile :</label>
+            <input type="text" id="telMobile" placeholder="ex : 0699999999"><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Loisirs</legend>
+            <label>Lecture :</label>
+            <input type="checkbox" name="loisirs" value="Lecture"><br>
+
+            <label>Sport :</label>
+            <input type="checkbox" name="loisirs" value="Sport"><br>
+
+            <label>Photo :</label>
+            <input type="checkbox" name="loisirs" value="Photo"><br>
+
+            <label>Cinéma :</label>
+            <input type="checkbox" name="loisirs" value="Cinéma"><br>
+
+            <label>Aquariophilie :</label>
+            <input type="checkbox" name="loisirs" value="Aquariophilie"><br>
+
+            <label>Astronomie :</label>
+            <input type="checkbox" name="loisirs" value="Astronomie"><br>
+
+            <label for="pays">Dernier pays visité :</label>
+            <select id="pays" name="pays">
+                <optgroup label="Europe">
+                    <option value="France" selected>France</option>
+                    <option value="Espagne">Espagne</option>
+                    <option value="Italie">Italie</option>
+                    <option value="Royaume-Uni">Royaume-Uni</option>
+                </optgroup>
+                <optgroup label="Amérique">
+                    <option value="Canada">Canada</option>
+                    <option value="Etats-Unis">États-Unis</option>
+                </optgroup>
+                <optgroup label="Asie">
+                    <option value="Chine">Chine</option>
+                    <option value="Japon">Japon</option>
+                </optgroup>
+            </select><br>
+        </fieldset>
+
+        <button type="submit">Valider</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire</title>
+</head>
+<body>
+    <form action="#" method="get">
+        <fieldset>
+            <legend>Paramètres du compte</legend>
+            
+            <label for="login">Votre login :</label>
+            <input 
+                type="text" 
+                id="login" 
+                name="login" 
+                placeholder="Saisissez votre login" 
+                maxlength="30" 
+                size="30" 
+                required>
+            <br><br>
+            
+            <label for="mdp">Mot de passe :</label>
+            <input 
+                type="password" 
+                id="mdp" 
+                name="mdp" 
+                placeholder="Saisissez votre mot de passe" 
+                maxlength="30" 
+                size="30" 
+                required>
+        </fieldset>
+        <br>
+        <button type="submit">Valider</button>
+    </form>
+</body>
+</html>
