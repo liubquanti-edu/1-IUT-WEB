@@ -1,5 +1,5 @@
-window.prompt("Donner la base d'un triangle :");
-window.prompt("Donner la hauteur d'un triangle :");
+let base = window.prompt("Donner la base d'un triangle :");
+let height = window.prompt("Donner la hauteur d'un triangle :");
 
 let area = (base * height) / 2;
 
