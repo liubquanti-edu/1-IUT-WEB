@@ -14,7 +14,17 @@
 
   <div class="card">
     <ul>
-      <!-- A compléter-->
+      <li>
+        <a href="#" aria-disabled="true">Consulter un poste existant</a>
+        <span class="muted">(en construction)</span>
+      </li>
+      <li>
+        <a href="#" aria-disabled="true">Mettre &agrave; jour un poste existant</a>
+        <span class="muted">(en construction)</span>
+      </li>
+      <li>
+        <a class="btn" href="poste.php">Saisir un nouveau poste</a>
+      </li>
     </ul>
   </div>
 </body>
