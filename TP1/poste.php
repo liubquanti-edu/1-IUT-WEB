@@ -1,13 +1,15 @@
 <?php
 require_once __DIR__ . '/includes/poste_form.php';
 
+$userId = (int) ($_POST['user_id'] ?? 0);
+
 $post = [
-    'hostname' => '',
-    'ip'       => '',
-    'cidr'     => '',
-    'gateway'  => '',
-    'vlan'     => '',
-    'port'     => '',
+  'hostname' => '',
+  'ip'       => '',
+  'cidr'     => '',
+  'gateway'  => '',
+  'vlan'     => '',
+  'port'     => '',
 ];
 
 $postErrors = [];
@@ -24,7 +26,12 @@ $postErrors = [];
   <h1>Saisir un nouveau poste</h1>
 
   <div class="card">
-    <?php render_post_form($post, $postErrors); ?>
+    <?php if ($userId <= 0): ?>
+      <p class="error">Impossible d'accéder au formulaire sans authentification.</p>
+      <a class="btn" href="login.php">Retour connexion</a>
+    <?php else: ?>
+      <?php render_post_form($post, $postErrors, $userId); ?>
+    <?php endif; ?>
   </div>
 
 </body>

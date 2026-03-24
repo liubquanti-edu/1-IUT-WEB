@@ -1,6 +1,6 @@
 <?php
 if (!function_exists('render_post_form')) {
-    function render_post_form(array $values, array $errors = []): void
+  function render_post_form(array $values, array $errors = [], ?int $userId = null): void
     {
         $escape = static function (?string $text): string {
             return htmlspecialchars((string) $text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -13,6 +13,11 @@ if (!function_exists('render_post_form')) {
         };
         ?>
         <form method="post" action="pentest.php" novalidate>
+          <?php if ($userId === null): ?>
+            <p class="error">Utilisateur non authentifie. Merci de vous <a href="login.php">connecter</a>.</p>
+          <?php else: ?>
+            <input type="hidden" name="user_id" value="<?= $escape((string) $userId); ?>">
+          <?php endif; ?>
           <div class="row">
             <div class="col">
               <label for="hostname">Hostname <span class="muted">(3-30 caracteres)</span></label>

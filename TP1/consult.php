@@ -43,6 +43,8 @@ function render_table(array $rows, array $columns, string $emptyMessage = ''): v
     echo '</tbody></table>';
 }
 
+$userId = (int) ($_POST['user_id'] ?? $_GET['user_id'] ?? 0);
+
 $pdo = null;
 $dbError = null;
 try {
@@ -54,15 +56,15 @@ try {
 $posts = [];
 $selectedPost = null;
 $pentests = [];
-$selectedId = isset($_GET['id']) ? (int) $_GET['id'] : null;
+$selectedId = isset($_POST['id']) ? (int) $_POST['id'] : (isset($_GET['id']) ? (int) $_GET['id'] : null);
 
-if ($dbError === null && $pdo instanceof PDO) {
+if ($userId > 0 && $dbError === null && $pdo instanceof PDO) {
     try {
-        $posts = fetch_posts($pdo);
+    $posts = fetch_posts($pdo, $userId);
         if ($selectedId) {
-            $selectedPost = find_post($pdo, $selectedId);
+      $selectedPost = find_post($pdo, $selectedId, $userId);
             if ($selectedPost) {
-                $pentests = fetch_pentests($pdo, $selectedPost['id']);
+        $pentests = fetch_pentests($pdo, $selectedPost['id'], $userId);
             }
         }
     } catch (PDOException $e) {
@@ -80,9 +82,19 @@ if ($dbError === null && $pdo instanceof PDO) {
 </head>
 <body>
   <h1>Consultation des postes</h1>
-  <a class="btn" href="index.php">Retour menu</a>
+  <?php if ($userId > 0): ?>
+    <form method="post" action="index.php" style="display:inline-block;margin-bottom:16px;">
+      <input type="hidden" name="user_id" value="<?= escape((string) $userId); ?>">
+      <button class="btn" type="submit">Retour menu</button>
+    </form>
+  <?php endif; ?>
 
-  <?php if ($dbError !== null): ?>
+  <?php if ($userId <= 0): ?>
+    <div class="card">
+      <p class="error">Merci de vous connecter avant de consulter les postes.</p>
+      <a class="btn" href="login.php">Aller à la connexion</a>
+    </div>
+  <?php elseif ($dbError !== null): ?>
     <div class="card">
       <p class="error">Erreur base de donnees : <?= escape($dbError); ?></p>
     </div>
@@ -95,13 +107,14 @@ if ($dbError === null && $pdo instanceof PDO) {
             [
                 ['label' => 'ID', 'field' => 'id'],
                 [
-                    'label' => 'Hostname',
-                    'formatter' => static function (array $row): string {
-                        $id = (int) ($row['id'] ?? 0);
-                        $host = $row['hostname'] ?? '';
-                        return '<a href="consult.php?id=' . urlencode((string) $id) . '">' . escape($host) . '</a>';
-                    },
-                    'html' => true,
+                  'label' => 'Hostname',
+                  'formatter' => function (array $row) use ($userId): string {
+                    $id = (int) ($row['id'] ?? 0);
+                    $host = $row['hostname'] ?? '';
+                    $url = 'consult.php?id=' . urlencode((string) $id) . '&user_id=' . urlencode((string) $userId);
+                    return '<a href="' . $url . '">' . escape($host) . '</a>';
+                  },
+                  'html' => true,
                 ],
                 ['label' => 'IP/CIDR', 'formatter' => static function (array $row): string {
                     $ip = $row['ip'] ?? '';

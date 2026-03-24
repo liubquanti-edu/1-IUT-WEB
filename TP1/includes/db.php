@@ -19,23 +19,43 @@ function get_pdo(): PDO {
     return $pdo;
 }
 
-function fetch_posts(PDO $pdo): array {
-    $sql = 'SELECT id, hostname, ip, cidr, gateway, vlan, port, created_at FROM poste ORDER BY id DESC';
-    $stmt = $pdo->query($sql);
+function fetch_posts(PDO $pdo, int $userId): array {
+    $sql = 'SELECT id, hostname, ip, cidr, gateway, vlan, port, created_at
+            FROM poste
+            WHERE utilisateur_id = :user_id
+            ORDER BY id DESC';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['user_id' => $userId]);
     return $stmt->fetchAll();
 }
 
-function find_post(PDO $pdo, int $id): ?array {
-    $sql = 'SELECT id, hostname, ip, cidr, gateway, vlan, port, created_at FROM poste WHERE id = :id';
+function find_post(PDO $pdo, int $id, int $userId): ?array {
+    $sql = 'SELECT id, hostname, ip, cidr, gateway, vlan, port, created_at, utilisateur_id
+            FROM poste
+            WHERE id = :id AND utilisateur_id = :user_id';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['id' => $id]);
+    $stmt->execute(['id' => $id, 'user_id' => $userId]);
     $row = $stmt->fetch();
     return $row ?: null;
 }
 
-function fetch_pentests(PDO $pdo, int $posteId): array {
-    $sql = 'SELECT id, poste_id, type, test_date, result, comment, score, level, created_at FROM pentest WHERE poste_id = :poste_id ORDER BY id DESC';
+function fetch_pentests(PDO $pdo, int $posteId, int $userId): array {
+    $sql = 'SELECT id, poste_id, type, test_date, result, comment, score, level, created_at
+            FROM pentest
+            WHERE poste_id = :poste_id AND utilisateur_id = :user_id
+            ORDER BY id DESC';
     $stmt = $pdo->prepare($sql);
-    $stmt->execute(['poste_id' => $posteId]);
+    $stmt->execute(['poste_id' => $posteId, 'user_id' => $userId]);
     return $stmt->fetchAll();
+}
+
+function find_user_by_credentials(PDO $pdo, string $login, string $password): ?array {
+    $sql = 'SELECT id, login FROM utilisateur WHERE login = :login AND mot_de_passe = :password LIMIT 1';
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        'login'    => $login,
+        'password' => $password,
+    ]);
+    $row = $stmt->fetch();
+    return $row ?: null;
 }
