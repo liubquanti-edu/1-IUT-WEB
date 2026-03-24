@@ -15,8 +15,7 @@
   <div class="card">
     <ul>
       <li>
-        <a href="#" aria-disabled="true">Consulter un poste existant</a>
-        <span class="muted">(en construction)</span>
+        <a href="consult.php">Consulter un poste existant</a>
       </li>
       <li>
         <a href="#" aria-disabled="true">Mettre &agrave; jour un poste existant</a>
