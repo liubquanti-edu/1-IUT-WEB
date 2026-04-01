@@ -51,13 +51,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $dbError === null && $pdo instanceo
     <?php if ($dbError !== null): ?>
       <p class="error">Erreur base de donnees : <?= escape($dbError); ?></p>
     <?php elseif ($userId !== null): ?>
-      <p>Authentification réussie.</p>
+      <p>Authentification réussie. Redirection en cours…</p>
       <form method="post" action="index.php" id="redir-form">
         <input type="hidden" name="user_id" value="<?= escape((string) $userId); ?>">
-        <button class="btn" type="submit">Accéder au menu</button>
+        <noscript>
+          <button class="btn" type="submit">Accéder au menu</button>
+        </noscript>
       </form>
       <script>
-        setTimeout(function(){ document.getElementById('redir-form').submit(); }, 400);
+        document.getElementById('redir-form').submit();
       </script>
     <?php else: ?>
       <?php if ($error !== ''): ?>
