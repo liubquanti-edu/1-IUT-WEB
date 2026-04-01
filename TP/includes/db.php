@@ -49,6 +49,30 @@ function fetch_pentests(PDO $pdo, int $posteId, int $userId): array {
     return $stmt->fetchAll();
 }
 
+function fetch_audit_summary(PDO $pdo, int $userId): array {
+    $sql = "
+        SELECT
+            p.type AS faille,
+            GROUP_CONCAT(DISTINCT s.hostname ORDER BY s.hostname SEPARATOR ', ') AS postes,
+            COUNT(*) AS occurrences,
+            MAX(CASE p.level WHEN 'Eleve' THEN 3 WHEN 'Moyen' THEN 2 WHEN 'Bon' THEN 1 ELSE 0 END) AS max_level_score,
+            CASE
+                WHEN MAX(CASE p.level WHEN 'Eleve' THEN 3 WHEN 'Moyen' THEN 2 WHEN 'Bon' THEN 1 ELSE 0 END) = 3 THEN 'Eleve'
+                WHEN MAX(CASE p.level WHEN 'Eleve' THEN 3 WHEN 'Moyen' THEN 2 WHEN 'Bon' THEN 1 ELSE 0 END) = 2 THEN 'Moyen'
+                WHEN MAX(CASE p.level WHEN 'Eleve' THEN 3 WHEN 'Moyen' THEN 2 WHEN 'Bon' THEN 1 ELSE 0 END) = 1 THEN 'Bon'
+                ELSE 'Inconnu'
+            END AS worst_level
+        FROM pentest p
+        INNER JOIN poste s ON s.id = p.poste_id
+        WHERE p.utilisateur_id = :user_id
+        GROUP BY p.type
+        ORDER BY max_level_score DESC, occurrences DESC, faille ASC
+    ";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['user_id' => $userId]);
+    return $stmt->fetchAll();
+}
+
 function find_user_by_credentials(PDO $pdo, string $login, string $password): ?array {
     $sql = 'SELECT id, login FROM utilisateur WHERE login = :login AND mot_de_passe = :password LIMIT 1';
     $stmt = $pdo->prepare($sql);

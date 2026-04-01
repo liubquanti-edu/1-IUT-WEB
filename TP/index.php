@@ -10,7 +10,7 @@ $userId = (int) ($_POST['user_id'] ?? 0);
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Audit de sécurité — Menu</h1>
+  <h1>Audit de sécurité - Menu</h1>
 
   <?php if ($userId <= 0): ?>
     <div class="card">
@@ -25,17 +25,23 @@ $userId = (int) ($_POST['user_id'] ?? 0);
         <li>
           <form method="post" action="consult.php">
             <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
-            <button class="btn secondary" type="submit">Consulter un poste existant</button>
+            <button class="btn" type="submit">Consulter un poste existant</button>
           </form>
         </li>
         <li>
-          <span class="muted">Mettre à jour un poste (en construction)</span>
+          <form method="post" action="rapport.php">
+            <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
+            <button class="btn" type="submit">Rapport d'audit</button>
+          </form>
         </li>
         <li>
           <form method="post" action="poste.php">
             <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
             <button class="btn" type="submit">Saisir un nouveau poste</button>
           </form>
+        </li>
+        <li>
+          <span class="muted">Mettre à jour un poste (en construction)</span>
         </li>
       </ul>
     </div>

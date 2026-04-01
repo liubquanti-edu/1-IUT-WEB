@@ -74,7 +74,13 @@ if (!function_exists('render_post_form')) {
           <?php endif; ?>
 
           <button class="btn" type="submit">Saisir rapport pentest</button>
-          <a class="btn secondary" href="index.php">Retour menu</a>
+          <?php if ($userId !== null): ?>
+            <button class="btn secondary" type="submit" formaction="index.php" formnovalidate style="margin-left:8px;">
+              Retour menu
+            </button>
+          <?php else: ?>
+            <a class="btn secondary" href="login.php">Retour menu</a>
+          <?php endif; ?>
         </form>
         <?php
     }
