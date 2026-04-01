@@ -1,5 +1,10 @@
 <?php
 $userId = (int) ($_POST['user_id'] ?? 0);
+
+if ($userId <= 0) {
+  header('Location: login.php');
+  exit;
+}
 ?>
 <!doctype html>
 <html lang="fr">
@@ -12,39 +17,32 @@ $userId = (int) ($_POST['user_id'] ?? 0);
 <body>
   <h1>Audit de sécurité - Menu</h1>
 
-  <?php if ($userId <= 0): ?>
-    <div class="card">
-      <p>Merci de vous authentifier pour accéder aux fonctionnalités.</p>
-      <a class="btn" href="login.php">Aller à la page de connexion</a>
-    </div>
-  <?php else: ?>
-    <div class="card">
-      <h2>Bienvenue</h2>
-      <p class="muted">Vous êtes connecté en tant qu'utilisateur #<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>.</p>
-      <ul>
-        <li>
-          <form method="post" action="consult.php">
-            <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
-            <button class="btn" type="submit">Consulter un poste existant</button>
-          </form>
-        </li>
-        <li>
-          <form method="post" action="rapport.php">
-            <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
-            <button class="btn" type="submit">Rapport d'audit</button>
-          </form>
-        </li>
-        <li>
-          <form method="post" action="poste.php">
-            <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
-            <button class="btn" type="submit">Saisir un nouveau poste</button>
-          </form>
-        </li>
-        <li>
-          <span class="muted">Mettre à jour un poste (en construction)</span>
-        </li>
-      </ul>
-    </div>
-  <?php endif; ?>
+  <div class="card">
+    <h2>Bienvenue</h2>
+    <p class="muted">Vous êtes connecté en tant qu'utilisateur #<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>.</p>
+    <ul>
+      <li>
+        <form method="post" action="consult.php">
+          <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
+          <button class="btn" type="submit">Consulter un poste existant</button>
+        </form>
+      </li>
+      <li>
+        <form method="post" action="rapport.php">
+          <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
+          <button class="btn" type="submit">Rapport d'audit</button>
+        </form>
+      </li>
+      <li>
+        <form method="post" action="poste.php">
+          <input type="hidden" name="user_id" value="<?= htmlspecialchars((string) $userId, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
+          <button class="btn" type="submit">Saisir un nouveau poste</button>
+        </form>
+      </li>
+      <li>
+        <span class="muted">Mettre à jour un poste (en construction)</span>
+      </li>
+    </ul>
+  </div>
 </body>
 </html>
